@@ -1,0 +1,121 @@
+body{
+    margin:0;
+    padding:0;
+    /*height:200vh;*/
+    background-color: #2f323A;
+    background-size: cover; 
+  }
+  
+  
+  .logo{
+      display: block;
+      margin: 0 auto;
+  }
+  
+  .form{
+    background: #000;
+    z-index: 1;
+    font-family: "candara", san-serif;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    border-top: 4px solid peru;
+    border-bottom: 4px solid peru;
+    transform: translate(-50%, -50%); 
+    width: 300px;
+    padding: 0 70px 45px 70px;
+    text-align: center;
+    border-radius: 20px;
+    opacity: 0.9;
+  }
+  
+  .form h2{
+      color: #fff;
+      font-size: 29px;
+      font-weight: 500;
+      text-transform: uppercase;
+  }
+  
+  .form .icons i{
+      color: #fff;
+      font-size: 25px;
+      margin:0 20px 30px 20px;
+      transition: 0.9s;
+      transition-property:color, transform;
+  }
+  
+  .form .icons i:hover{
+      color: #900C3F;
+      transform: scale(1.4);
+  }
+  
+  .form input{
+      outline: 0;
+      background: none;
+      font-size: 15px;
+      color:#fff;
+      text-align:center;
+      width: 250px;
+      margin-bottom: 35px;
+      padding: 15px;
+      cursor: pointer;
+      box-sizing: border-box;
+      border: 2.5px solid #04FBB4;
+      border-radius: 25px;
+      transition: 0.5s;
+      transition-property: width;
+  
+  }
+  
+  .form input:hover{
+      width:315px;
+  }
+  
+  .form input:focus{
+      width:315px;
+  }
+  
+  .form button{
+      outline:0;
+      background:none;
+      color: #fff;
+      font-size:15px;
+      font-weight: 350;
+      text-transform:uppercase;
+      width:150px;
+      padding:15px;
+      border:2.5px solid #2E86DE;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: 0.6;
+      transition-property: background, transform;
+  }
+  
+  .form button:hover, .form button:focus, .form button:focus{
+      background: #04351E;
+      transform: scale(1.1);
+  }
+  
+  .form .options{
+       color:#bbbb;
+       font-size: 14px;
+       margin:20px 0 0;
+  }
+  
+  .form .options a{
+  
+      text-decoration: none;
+      color: #F88905;
+      margin:7px ;
+  }
+  
+  .footer{
+      padding-top: 30px;
+      text-align: center;
+      font-size: 0.9em;
+      font-weight: 500px;
+      color:ghostwhite;
+      margin-top: 55%;
+  
+  }
+  
