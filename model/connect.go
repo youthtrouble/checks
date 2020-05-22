@@ -8,10 +8,10 @@ import (
 
 const (
 	host = "localhost"
-	port = 5432
+	port = 8000
 	user = "postgres"
-	password = "austin"
-	dbname = "farmstead"
+	password = "deswerf"
+	dbname = "forthebirds"
 )
 
 // The "db" package level variable will hold the reference to our database instance

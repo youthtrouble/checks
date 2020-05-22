@@ -10,10 +10,10 @@ import (
 	"net/http"
 
 	"golang.org/x/crypto/bcrypt"
+	"github.com/gorilla/sessions"
 )
 
 const hashCost = 8
-
 
 
 
@@ -46,8 +46,27 @@ func Signup(w http.ResponseWriter, r *http.Request){
 	// We reach this point if the credentials we correctly stored in the database, and the default status of 200 is sent back
 }
 
+var (
+    // key must be 16, 24 or 32 bytes long (AES-128, AES-192 or AES-256)
+    key = []byte("super-secret-key")
+    store = sessions.NewCookieStore(key)
+)
+
+func secret(w http.ResponseWriter, r *http.Request) {
+    session, _ := store.Get(r, "cookie-name")
+
+    // Check if user is authenticated
+    if auth, ok := session.Values["authenticated"].(bool); !ok || !auth {
+        http.Error(w, "Forbidden", http.StatusForbidden)
+        return
+    }
+}
+
 // Signin authenticates user login credentials
 func Signin(w http.ResponseWriter, r *http.Request){
+
+	session, _ := store.Get(r, "cookie-name")
+
 	// Parse and decode the request body into a new `Credentials` instance	
 	creds := &views.Credentials{}
 	err := json.NewDecoder(r.Body).Decode(creds)
@@ -55,6 +74,7 @@ func Signin(w http.ResponseWriter, r *http.Request){
 		// If there is something wrong with the request body, return a 400 status		
 		w.WriteHeader(http.StatusBadRequest)
 		return 
+		
 	}
 	
 	// We create another instance of `Credentials` to store the credentials we get from the database
@@ -68,6 +88,7 @@ func Signin(w http.ResponseWriter, r *http.Request){
 		// If the error is of any other type, send a 500 status
 		w.WriteHeader(http.StatusInternalServerError)
 		return
+		
 	}
 	
 
@@ -77,7 +98,10 @@ func Signin(w http.ResponseWriter, r *http.Request){
 		w.WriteHeader(http.StatusUnauthorized)
 		// Render error message on page
 	}
-
+	
+	session.Values["authenticated"] = true
+	session.Save(r, w)
+	
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(struct {
 		Status string `json:"status"`

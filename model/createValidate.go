@@ -3,9 +3,9 @@ package model
 import "auth/views"
 
 // CreateUser creates a new user
-func CreateUser(user, password string) error{
+func CreateUser(username, password string) error{
 	// before creating user check if the user name exits
-	if _, err := db.Query("INSERT INTO users (username, password) VALUES ($1,$2)", user, password); err != nil {
+	if _, err := db.Query("INSERT INTO avelival (username, password) VALUES ($1,$2)", username, password); err != nil {
 		return err
 	}
 	
@@ -14,7 +14,7 @@ func CreateUser(user, password string) error{
 
 // GetUserCredential gets the existing entry present in the database for the given username
 func GetUserCredential(username string) (*views.Credentials,error){
-	result := db.QueryRow("SELECT password FROM users WHERE username= $1", username)
+	result := db.QueryRow("SELECT password FROM avelival WHERE username= $1", username)
 	// We create another instance of `Credentials` to store the credentials we get from the database
 	hashedCreds := &views.Credentials{}
 

@@ -9,7 +9,7 @@ import (
 	"github.com/gorilla/mux"
 	"html/template"
 	_ "github.com/lib/pq"
-	"path/filepath" // so that we can make path joins compatible on all OS
+	//"path/filepath" // so that we can make path joins compatible on all OS
 )
 
 var tmpl = template.New("")
@@ -29,26 +29,26 @@ func handler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	
   	
-	_, err := tmpl.ParseGlob(filepath.Join(".", "templates", "*.html"))
-	if err != nil {
-		log.Fatalf("Unable to parse templates: %v\n", err)
-	}
-	// _, err = tmpl.ParseGlob(filepath.Join(".", "templates/css", "*.css"))
+	// _, err := tmpl.ParseGlob(filepath.Join(".", "templates", "*.html"))
 	// if err != nil {
 	// 	log.Fatalf("Unable to parse templates: %v\n", err)
 	// }
+	// // _, err = tmpl.ParseGlob(filepath.Join(".", "templates/css", "*.css"))
+	// // if err != nil {
+	// // 	log.Fatalf("Unable to parse templates: %v\n", err)
+	// // }
 
-	fmt.Println(filepath.Join(".", "templates", "*.html"))
-	fmt.Println(filepath.Join(".", "templates", "*.css"))
+	// fmt.Println(filepath.Join(".", "templates", "*.html"))
+	// fmt.Println(filepath.Join(".", "templates", "*.css"))
 
-	fs:= http.FileServer(http.Dir("templates/"))
-	// Registering routes and handler that we will implement
-	//multi := http.NewServeMux() 
+	// fs:= http.FileServer(http.Dir("templates/"))
+	// // Registering routes and handler that we will implement
+	// //multi := http.NewServeMux() 
 	r := mux.NewRouter().StrictSlash(true)
 	r.HandleFunc("/signin", handle.Signin).Methods("POST")
 	r.HandleFunc("/signup", handle.Signup).Methods("POST")
 	r.HandleFunc("/", handler).Methods("GET")
-	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", fs))
+	//r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", fs))
 	
 	//multi.Handle("/static/", http.StripPrefix("/static", fs))
 	// multi.HandleFunc("/", handler)
@@ -57,8 +57,8 @@ func main() {
 
 	db := model.InitDB()
 	defer db.Close()
-	// start the server on port 8000
+	// start the server on port 5432
 	fmt.Println("Listening and serving.....")
-	log.Fatal(http.ListenAndServe(":8000", r))
+	log.Fatal(http.ListenAndServe(":5432", r))
 }
 
