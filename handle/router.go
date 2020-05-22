@@ -6,7 +6,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	"log"
+	//"log"
 	"net/http"
 
 	"golang.org/x/crypto/bcrypt"
@@ -38,7 +38,7 @@ func Signup(w http.ResponseWriter, r *http.Request){
 	if err = model.CreateUser(username, passkey); err != nil {
 		// If there is any issue with inserting into the database, return a 500 error
 		w.WriteHeader(http.StatusInternalServerError)
-		log.Fatal(err)
+		fmt.Fprintf(w, "There was an issue %s\n", err)
 		return
 	}
 	w.WriteHeader(http.StatusCreated)
