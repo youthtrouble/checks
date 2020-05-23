@@ -23,3 +23,7 @@ POST http://localhost:8000/signin
   "username": "johndoe",
   "password": "incorrect"
 }
+
+### AuthSession request
+
+POST http://localhost:8000/testsession
