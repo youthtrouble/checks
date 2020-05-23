@@ -52,20 +52,27 @@ var (
     store = sessions.NewCookieStore(key)
 )
 
-func secret(w http.ResponseWriter, r *http.Request) {
-    session, _ := store.Get(r, "cookie-name")
+//AuthSession test for sessions reliability
+func AuthSession(w http.ResponseWriter, r *http.Request) {
+    session, _ := store.Get(r, "avelycookie")
 
     // Check if user is authenticated
-    if auth, ok := session.Values["authenticated"].(bool); !ok || !auth {
-        http.Error(w, "Forbidden", http.StatusForbidden)
-        return
-    }
+	untyped, ok := session.Values["Username"]
+	if !ok {
+		return
+	}
+	Username, ok := untyped.(string)
+	if !ok{
+		return
+	}
+	w.Write([]byte(Username))
+	
 }
 
 // Signin authenticates user login credentials
 func Signin(w http.ResponseWriter, r *http.Request){
 
-	session, _ := store.Get(r, "cookie-name")
+	session, _ := store.Get(r, "avelycookie")
 
 	// Parse and decode the request body into a new `Credentials` instance	
 	creds := &views.Credentials{}
@@ -99,7 +106,7 @@ func Signin(w http.ResponseWriter, r *http.Request){
 		// Render error message on page
 	}
 	
-	session.Values["authenticated"] = true
+	session.Values["Username"] = creds.Username
 	session.Save(r, w)
 	
 	w.WriteHeader(http.StatusOK)

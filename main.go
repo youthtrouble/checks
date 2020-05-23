@@ -47,6 +47,7 @@ func main() {
 	r := mux.NewRouter().StrictSlash(true)
 	r.HandleFunc("/signin", handle.Signin).Methods("POST")
 	r.HandleFunc("/signup", handle.Signup).Methods("POST")
+	r.HandleFunc("/testsession", handle.AuthSession).Methods("POST")
 	r.HandleFunc("/", handler).Methods("GET")
 	//r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", fs))
 	
